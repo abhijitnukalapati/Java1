@@ -5,34 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
-    <string-array name="spinner_array">
-        <item>Spinner 1</item>
-        <item>Spinner 2</item>
-        <item>Spinner 3</item>
-        <item>Spinner 4</item>
-    </string-array>
-    
-    <string-array name="listView_array">
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-        <item>Option 4</item>
-        <item>Option 5</item>
-        <item>Option 6</item>
-        <item>Option 7</item>
-        <item>Option 8</item>
-        <item>Option 9</item>
-        <item>Option 10</item>
-        <item>Option 11</item>
-        <item>Option 12</item>
-        <item>Option 13</item>
-        <item>Option 14</item>
-        <item>Option 15</item>
-        <item>Option 16</item>
-        <item>Option 17</item>
-        <item>Option 18</item>
-        <item>Option 19</item>
-        <item>Option 20</item>
+    <string-array name="gameTitles">
+        <item>Review 1</item>
+        <item>Review 2</item>
+        <item>Review 3</item>
+        <item>Review 4</item>
+        <item>Review 5</item>
+
     </string-array>
 
 </resources>

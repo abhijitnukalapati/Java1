@@ -9,8 +9,7 @@ package com.example.java1week2;
 
 public final class R {
     public static final class array {
-        public static final int listView_array=0x7f050001;
-        public static final int spinner_array=0x7f050000;
+        public static final int gameTitles=0x7f050000;
     }
     public static final class attr {
     }
