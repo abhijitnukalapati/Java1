@@ -31,6 +31,7 @@ public class GameReviewThings {
 		for(int i=0; i<games.length; i++) {
 			RadioButton rb = new RadioButton(context);
 			rb.setText(games[i]);
+			rb.setId(9000 + i);
 			radioButtons.addView(rb);
 		}
 		
