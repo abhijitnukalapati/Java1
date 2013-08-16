@@ -14,7 +14,7 @@ public class json {
 			// creation of the query JSONObject
 			JSONObject queryObject = new JSONObject();
 
-			//For loop through enums
+			//For loop through the enums
 			for (GameReviews review : GameReviews.values()) {
 				
 				//Create game review object
@@ -22,6 +22,7 @@ public class json {
 
 				gameReviews.put("name", review.setName());
 				gameReviews.put("date", review.setDate());
+				gameReviews.put("review", review.setReview());
 				gameReviews.put("score", review.setScore());
 
 				queryObject.put(review.name().toString(), gameReviews);
@@ -37,19 +38,21 @@ public class json {
 	}
 
 
-	// used to return the model and type of the guitar
+	//Setting up the result text that is populated from the JSON
 	public static String readJSON(String selected){
-		String result, name, date, score;
+		String result, name, date, review, score;
 
 		JSONObject object = buildJSON();
 
 		try {
 			name = object.getJSONObject("gameReviews").getJSONObject(selected).getString("name");
 			date = object.getJSONObject("gameReviews").getJSONObject(selected).getString("date");
+			review = object.getJSONObject("gameReviews").getJSONObject(selected).getString("review");
 			score = object.getJSONObject("gameReviews").getJSONObject(selected).getString("score");
 
-			result = "Name: "+ name + "\r\n" 
-					+"Date: " + date + "\r\n"
+			result = "\r\n" + "Game Title: "+ name + "\r\n" 
+					+"Date Published: " + date + "\r\n"
+					+"Review Summary: " + review + "\r\n"
 					+"Score: " + score + "\r\n";
 			
 		} catch (JSONException e) {
@@ -61,21 +64,3 @@ public class json {
 		return result;
 	}
 }
-
-//	// this is solely for returning the price of the guitar
-//	public static String getScore(String selected){
-//		String scoreReturn;
-//
-//		JSONObject object = buildJSON();
-//
-//		try {
-//			scoreReturn = object.getJSONObject("json").getJSONObject(selected).getString("score");
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			scoreReturn = e.toString();
-//		}
-//
-//		return scoreReturn;
-//	}
-//}

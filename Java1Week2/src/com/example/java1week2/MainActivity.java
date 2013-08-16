@@ -27,11 +27,15 @@ public class MainActivity extends Activity {
 		LinearLayout ll = new LinearLayout(this);
 		final TextView resultView = new TextView(this);
 		
-		final RadioGroup radioButtons = GameReviewThings.getOptions(this, gameTitles);
-		LinearLayout buttonView = GameReviewThings.buttonView(this, "Show Details");
+		//Grab the radio buttons from the GameReviewThings class
+		final RadioGroup radioButtons = GameReviewThings.getRadioButtons(this, gameTitles);
+		
+		//Grab the button from the GameReviewThings class
+		LinearLayout buttonView = GameReviewThings.buttonView(this, "Show Game Details");
 		Button theButton = (Button) buttonView.findViewById(2);
 		theButton.setOnClickListener(new OnClickListener() {
 			
+			//Populate the result view on tap of the button based off of the id that corresponds
 			@Override
 			public void onClick(View v) {
 				int id = radioButtons.getCheckedRadioButtonId();
@@ -45,11 +49,18 @@ public class MainActivity extends Activity {
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		resultView.setLayoutParams(lp);
 		resultView.setGravity(Gravity.CENTER_HORIZONTAL);
-		resultView.setText("Make a selection for results");
+		resultView.setText("\r\n" + "Select a game for more details.");
 		
-		ll.addView(buttonView);
-		buttonView.addView(radioButtons);
-		radioButtons.addView(resultView);
+		//Create another linear layout to organize all the parts
+		LinearLayout form = new LinearLayout(this);
+        form.setOrientation(LinearLayout.VERTICAL);
+        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        form.setLayoutParams(lp);
+		
+		form.addView(radioButtons);
+		form.addView(buttonView);
+		form.addView(resultView);
+		ll.addView(form);
 		
 		//Set content view
 		setContentView(ll);
