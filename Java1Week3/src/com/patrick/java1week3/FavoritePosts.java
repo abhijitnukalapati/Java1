@@ -1,21 +1,21 @@
 package com.patrick.java1week3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.patrick.lib.FileStuff;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.view.View;
 
 public class FavoritePosts extends LinearLayout {
-	
-	Button add;
-	Button remove;
+
 	Spinner favs;
 	Context context;
 	ArrayList<String> favPosts = new ArrayList<String>();
@@ -27,7 +27,7 @@ public class FavoritePosts extends LinearLayout {
 		
 		LayoutParams lp;
 		
-		favPosts.add("Select Favorite");
+		favPosts.add("History");
 		favs = new Spinner(context);
 		lp = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
 		favs.setLayoutParams(lp);
@@ -50,25 +50,31 @@ public class FavoritePosts extends LinearLayout {
 		
 		updateFavorites();
 		
-		add = new Button(context);
-		add.setText("+");
-		remove = new Button(context);
-		remove.setText("-");
-		
 		this.addView(favs);
-		this.addView(add);
-		this.addView(remove);
-		
+
 		lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		this.setLayoutParams(lp);
 	}
 	
+	@SuppressWarnings("unused")
+	private HashMap<String, String> getHistory() {
+		Object stored = FileStuff.readObjectFile(context, "history", false);
+		
+		HashMap<String, String> history;
+		if(stored == null) {
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		} else {
+			history = (HashMap<String, String>) stored;
+		}
+		return history;
+	}
+	
 	private void updateFavorites() {
-		favPosts.add("Post 1");
-		favPosts.add("Post 2");
-		favPosts.add("Post 3");
-		favPosts.add("Post 4");
-		favPosts.add("Post 5");
+		HashMap<String, String>  history = getHistory();
+		for(String key: history.keySet()) {
+			favPosts.add(key);
+		}
 	}
 
 }

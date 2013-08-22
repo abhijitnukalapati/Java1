@@ -8,7 +8,6 @@ public class PostDisplay extends GridLayout {
 
 	TextView postTitle;
 	TextView postDate;
-	TextView postContent;
 	TextView postUrl;
 	Context context;
 	
@@ -17,19 +16,15 @@ public class PostDisplay extends GridLayout {
 		
 		this.context = context;
 		
-		this.setColumnCount(2);
+		this.setColumnCount(1);
 		
 		TextView postTitleLabel = new TextView(context);
-		postTitleLabel.setText("Title: ");
+		postTitleLabel.setText("\r\nTitle: " );
 		postTitle = new TextView(context);
 		
 		TextView postDateLabel = new TextView(context);
 		postDateLabel.setText("Date: ");
 		postDate = new TextView(context);
-		
-		TextView postContentLabel = new TextView(context);
-		postContentLabel.setText("Content: ");
-		postContent = new TextView(context);
 		
 		TextView postUrlLabel = new TextView(context);
 		postUrlLabel.setText("URL: ");
@@ -39,11 +34,15 @@ public class PostDisplay extends GridLayout {
 		this.addView(postTitle);
 		this.addView(postDateLabel);
 		this.addView(postDate);
-		this.addView(postContentLabel);
-		this.addView(postContent);
 		this.addView(postUrlLabel);
 		this.addView(postUrl);
 		
+	}
+	
+	public void showResult(String title, String date, String postURL) {
+		postTitle.setText(title);
+		postDate.setText(date);
+		postUrl.setText(postURL);
 	}
 	
 }

@@ -1,7 +1,5 @@
 package com.patrickadams.java1week1;
 
-import com.patrickadams.java1week1.R.string;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
