@@ -1,49 +1,16 @@
 package com.patrick.java1week3;
 
-import android.content.Context;
-import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.Activity;
 
-public class PostDisplay extends GridLayout {
+public class PostDisplay {
 
-	TextView postTitle;
-	TextView postDate;
-	TextView postUrl;
-	ImageView postImage;
-	Context context;
-	
-	public PostDisplay(Context context) {
-		super(context);
-		
-		this.context = context;
-		
-		this.setColumnCount(1);
-		
-		TextView postTitleLabel = new TextView(context);
-		postTitleLabel.setText("\r\nTitle: " );
-		TextView postTitle = (TextView) findViewById(R.id.game_title);
-		
-		TextView postDateLabel = new TextView(context);
-		postDateLabel.setText("Date: ");
-		TextView postDate = (TextView) findViewById(R.id.game_date);
-		
-		TextView postUrlLabel = new TextView(context);
-		postUrlLabel.setText("URL: ");
-		TextView postUrl = (TextView) findViewById(R.id.game_url);
-		
-		this.addView(postTitleLabel);
-		this.addView(postTitle);
-		this.addView(postDateLabel);
-		this.addView(postDate);
-		this.addView(postUrlLabel);
-		this.addView(postUrl);
-		
-	}
-	
-	public void showResult(String title, String date, String postURL) {
-		postTitle.setText(title);
+	public static void showResult(Activity activity, String title, String date, String postURL) {
+        TextView postTitle = (TextView) activity.findViewById(R.id.game_title);
+        TextView postDate = (TextView) activity.findViewById(R.id.game_date);
+        TextView postUrl = (TextView) activity.findViewById(R.id.game_url);
+
+        postTitle.setText(title);
 		postDate.setText(date);
 		postUrl.setText(postURL);
 	}

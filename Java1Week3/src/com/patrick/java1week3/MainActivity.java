@@ -2,31 +2,25 @@ package com.patrick.java1week3;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.patrick.lib.FileStuff;
 import com.patrick.lib.WebConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity {
 	
 	Context context;
-	SearchForm search;
-	PostDisplay posts;
 	Boolean connected = false;
 	private EditText mEditText;
 
@@ -74,7 +68,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private class PostRequest extends AsyncTask<URL, Void, String> {
-		
+
 		@Override
 		protected String doInBackground(URL... urls) {
 			String response = "";
@@ -99,7 +93,7 @@ public class MainActivity extends Activity {
 					String date = results.getString("date");
 					String url = results.getString("short_url");
 					
-					posts.showResult(title, date, url);
+					PostDisplay.showResult(MainActivity.this, title, date, url);
 					
 					Toast toast = Toast.makeText(context, "Valid search: " + results.getString("title"), Toast.LENGTH_SHORT);
 					toast.show();
