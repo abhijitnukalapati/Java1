@@ -1,7 +1,9 @@
 package com.patrick.java1week3;
 
 import android.content.Context;
+import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PostDisplay extends GridLayout {
@@ -9,6 +11,7 @@ public class PostDisplay extends GridLayout {
 	TextView postTitle;
 	TextView postDate;
 	TextView postUrl;
+	ImageView postImage;
 	Context context;
 	
 	public PostDisplay(Context context) {
@@ -20,15 +23,15 @@ public class PostDisplay extends GridLayout {
 		
 		TextView postTitleLabel = new TextView(context);
 		postTitleLabel.setText("\r\nTitle: " );
-		postTitle = new TextView(context);
+		TextView postTitle = (TextView) findViewById(R.id.game_title);
 		
 		TextView postDateLabel = new TextView(context);
 		postDateLabel.setText("Date: ");
-		postDate = new TextView(context);
+		TextView postDate = (TextView) findViewById(R.id.game_date);
 		
 		TextView postUrlLabel = new TextView(context);
 		postUrlLabel.setText("URL: ");
-		postUrl = new TextView(context);
+		TextView postUrl = (TextView) findViewById(R.id.game_url);
 		
 		this.addView(postTitleLabel);
 		this.addView(postTitle);
@@ -37,6 +40,12 @@ public class PostDisplay extends GridLayout {
 		this.addView(postUrlLabel);
 		this.addView(postUrl);
 		
+	}
+	
+	public void showResult(String title, String date, String postURL) {
+		postTitle.setText(title);
+		postDate.setText(date);
+		postUrl.setText(postURL);
 	}
 	
 }

@@ -25,19 +25,8 @@ public class MainActivity extends Activity {
 	
 	Context context;
 	SearchForm search;
-	FavoritePosts favorites;
+	PostDisplay posts;
 	Boolean connected = false;
-	HashMap<String, String> history;
-	
-	public void showResult(String title, String date, String postURL) {
-		try{
-			((TextView) findViewById(R.id.game_title)).setText(title);
-			((TextView) findViewById(R.id.game_date)).setText(date);
-			((TextView) findViewById(R.id.game_url)).setText(postURL);
-		} catch (Exception e) {
-			Log.e("JSON ERROR", e.toString());
-		}
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +35,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.form);
 		
 		context = this;
-		history = getHistory();
-		
-		if(history != null) {
-			Log.i("HISTORY READ", history.toString());
-		}
-		
-		search = new SearchForm(context, "Enter Game Name", "GO");
 		
 		//Add search handler
 		Button searchButton = (Button) findViewById(R.id.searchButton);
@@ -71,16 +53,6 @@ public class MainActivity extends Activity {
 			Log.i("NETWORK CONNECTION", WebConnection.getConnectionType(context));
 		}
 		
-		//Add favorites display
-		favorites = new FavoritePosts(context);
-		
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 	
 	private void getPost(String tag) {
@@ -96,20 +68,6 @@ public class MainActivity extends Activity {
 			Log.e("BAD URL", "ERROR");
 			finalURL = null;
 		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	private HashMap<String, String> getHistory() {
-		Object stored = FileStuff.readObjectFile(context, "history", false);
-		
-		HashMap<String, String> history;
-		if(stored == null) {
-			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			history = new HashMap<String, String>();
-		} else {
-			history = (HashMap<String, String>) stored;
-		}
-		return history;
 	}
 	
 	private class PostRequest extends AsyncTask<URL, Void, String> {
@@ -138,18 +96,14 @@ public class MainActivity extends Activity {
 					String date = results.getString("date");
 					String url = results.getString("short_url");
 					
-					showResult(title, date, url);
+					posts.showResult(title, date, url);
 					
 					Toast toast = Toast.makeText(context, "Valid search: " + results.getString("title"), Toast.LENGTH_SHORT);
 					toast.show();
-					history.put(results.getString("title"), results.toString());
-					FileStuff.storeObjectFile(context, "history", history, false);
-					FileStuff.storeStringFile(context, "temp", results.toString(), true);
 				}
 			} catch (JSONException e) {
 				Log.e("JSON", e.getLocalizedMessage());
 			}
 		}
 	}
-
 }
