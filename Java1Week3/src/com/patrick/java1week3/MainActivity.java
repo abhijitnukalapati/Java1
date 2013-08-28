@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
@@ -26,20 +24,28 @@ import android.view.View.OnClickListener;
 public class MainActivity extends Activity {
 	
 	Context context;
-	LinearLayout ll;
 	SearchForm search;
-	TextView searchSuggestions;
-	PostDisplay posts;
 	FavoritePosts favorites;
 	Boolean connected = false;
 	HashMap<String, String> history;
+	
+	public void showResult(String title, String date, String postURL) {
+		try{
+			((TextView) findViewById(R.id.game_title)).setText(title);
+			((TextView) findViewById(R.id.game_date)).setText(date);
+			((TextView) findViewById(R.id.game_url)).setText(postURL);
+		} catch (Exception e) {
+			Log.e("JSON ERROR", e.toString());
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		setContentView(R.layout.form);
+		
 		context = this;
-		ll = new LinearLayout(this);
 		history = getHistory();
 		
 		if(history != null) {
@@ -49,7 +55,7 @@ public class MainActivity extends Activity {
 		search = new SearchForm(context, "Enter Game Name", "GO");
 		
 		//Add search handler
-		Button searchButton = search.getButton();
+		Button searchButton = (Button) findViewById(R.id.searchButton);
 		
 		searchButton.setOnClickListener(new OnClickListener() {
 			
@@ -65,25 +71,9 @@ public class MainActivity extends Activity {
 			Log.i("NETWORK CONNECTION", WebConnection.getConnectionType(context));
 		}
 		
-		//Add post display
-		posts = new PostDisplay(context);
-		
 		//Add favorites display
 		favorites = new FavoritePosts(context);
 		
-		//Add search suggestions to make it easier
-		searchSuggestions = new TextView(context);
-		searchSuggestions.setText("Search Suggestions:\r\n Tiny+Thief, \r\n Mittens, \r\n Fetch, \r\n Joe+Danger \r\n NOTE: Add '+' symbol instead of space. \r\n");
-		
-		//Add views to main layout
-		ll.addView(searchSuggestions);
-		ll.addView(search);
-		ll.addView(posts);
-		ll.addView(favorites);
-		
-		ll.setOrientation(LinearLayout.VERTICAL);
-		
-		setContentView(ll);
 	}
 
 	@Override
@@ -148,7 +138,7 @@ public class MainActivity extends Activity {
 					String date = results.getString("date");
 					String url = results.getString("short_url");
 					
-					posts.showResult(title, date, url);
+					showResult(title, date, url);
 					
 					Toast toast = Toast.makeText(context, "Valid search: " + results.getString("title"), Toast.LENGTH_SHORT);
 					toast.show();

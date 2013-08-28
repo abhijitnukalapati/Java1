@@ -39,10 +39,4 @@ public class PostDisplay extends GridLayout {
 		
 	}
 	
-	public void showResult(String title, String date, String postURL) {
-		postTitle.setText(title);
-		postDate.setText(date);
-		postUrl.setText(postURL);
-	}
-	
 }
