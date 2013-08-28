@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
 	SearchForm search;
 	PostDisplay posts;
 	Boolean connected = false;
+	private EditText mEditText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,13 @@ public class MainActivity extends Activity {
 		
 		//Add search handler
 		Button searchButton = (Button) findViewById(R.id.searchButton);
+		mEditText = (EditText) findViewById(R.id.searchField);
 		
 		searchButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				getPost(search.getField().getText().toString());
+				getPost(mEditText.getText().toString());
 			}
 		});
 		
